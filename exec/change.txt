@@ -1,0 +1,26 @@
+- generate_mutations.py
+@ comment out line 84 - 86
+#		if residue.code == 'A':
+#			continue
+#		# end if
+
+@ comment out line 110 - 112:
+#			if residue.code == _to:
+#				continue
+#			# end if
+
+
+- result_generator.py
+@ replace line 93 - 99 with this
+		if mut.split(';')[1][0] == x:
+			mut_score = 0.0
+			eff = 'native'
+		else:
+			try:
+				mut_score = data['Score'] [mut]
+				eff       = data['Effect'][mut]
+			except KeyError:
+				mut_score = nan
+				eff       = 'N/A'
+			# end try
+		# end if

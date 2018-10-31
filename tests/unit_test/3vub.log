@@ -1,0 +1,42 @@
+ln -sf /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//lib/specifications job.specifications 
+ 
+ - reading input ...
+ - generate mutation list
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/generate_mutations.py input.json mutation.list 
+ 
+ - computing residue depths ...
+/home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/depth-2.0/bin/DEPTH -i native.pdb -o native.pdb -survive 4 
+ 
+mv native*depth* depths/ 
+ 
+ - Computing clique ...
+python  /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/YETI-2.0//main.py native.pdb 3 10.5 /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/YETI-2.0//exec/distance_selector.py /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/YETI-2.0//exec/linkage /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/YETI-2.0//lib/half_side.density 
+ python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1/exec/YETI-2.0/exec/PDB_selector.py native.pdb native_select.pdb
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1/exec/YETI-2.0/exec/xyz_generator.py native_select.pdb native.xyz
+/home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1/exec/YETI-2.0/exec/g_distmatrix native.xyz native.xyz 10.5 native.pre.distmap
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1/exec/YETI-2.0/exec/distance_selector.py native.pre.distmap native.distmap
+/home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1/exec/YETI-2.0/exec/sort_distmatrix native.distmap native.sorted.distmap
+/home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1/exec/YETI-2.0/exec/linkage native.sorted.distmap /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/YETI-2.0//lib/half_side.density native.link
+cp native.link native.clique2
+/home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1/exec/YETI-2.0/exec/build_clique native.link native.clique2 native.clique
+mkdir cliques/ tempfiles/ 
+ 
+mv native*.clique? cliques/ 
+ 
+mv native*.link native*orphan* native*xyz native*select.pdb native*distmap tempfiles/ 
+ 
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/YETI-2.0//exec/identify_clique.py native.clique2 ../native.pdb ../depths/native.pdb-residue.depth native.clique2.pickle 
+ 
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/YETI-2.0//exec/identify_clique.py native.clique3 ../native.pdb ../depths/native.pdb-residue.depth native.clique3.pickle 
+ 
+ - Scoring native cliques ...
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/clique_scorer.py native.clique2.pickle /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//lib/potentials/ ../job.specifications 
+ 
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/clique_scorer.py native.clique3.pickle /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//lib/potentials/ ../job.specifications 
+ 
+ - Scoring mutants ...
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/mutants_scorer.py native.clique2.pickle ../native.pdb ../mutation.list /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//lib/potentials/ native.clique2.pickle.json ../job.specifications
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/mutants_scorer.py native.clique3.pickle ../native.pdb ../mutation.list /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//lib/potentials/ native.clique3.pickle.json ../job.specifications
+ - generating output html
+python /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//exec/result_generator.py unit_test.tmp.json /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//templates/output_template.html /home/tankp/Desktop/Mutational_stability_prediction/Content/programs/yeti_mutational_perdictor_1.1//templates/colorbar64.txt output.html 
+ 

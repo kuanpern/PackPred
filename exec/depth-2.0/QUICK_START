@@ -1,0 +1,22 @@
+for comprehensive documentation, read doc/documentation and try with example.sh in the same directory.
+for any further enquiry about the program, please mail to tankp@bii.a-star.edu.sg.
+
+== INSTALLATION ==
+1. compile and generate executables
+% cd DEPTH-2.0.0/bin
+% make
+2. download blast and UniRef90
+(visit http://mspc.bii.a-star.edu.sg/tankp/download.html)
+% unzip database.zip
+3. set path and parameter
+(check for predict_site.par to set relative path for UniRef90 database and blastpgp)
+
+*** (new) ***
+Binding site prediction with complementary evolutionary information
+% cd workspace
+% python ../bin/predict_site_auto.py 1MVT.pdb 1MVT predict_site.par
+
+and look at the output file
+*.pred.pdb:		  PDB file with B-factor column replaced by probability value
+*.pdb.binary.pdb: PDB file with B-factor column replaced by binding-site classification (1: binding site, 0: non-binding site)
+

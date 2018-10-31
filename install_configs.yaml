@@ -1,0 +1,3 @@
+logdir: < log directory >
+errdir: < err directory >
+outdir: < output directory >
