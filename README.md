@@ -18,7 +18,7 @@ $ sudo apt-get install python2.7 g++
 
 # compile the dependency programs
 $ cd $install_dir/exec/depth-2.0/bin/; make
-$ cd $install_dir/exec/YETI-2.0/; python install.py
+$ cd $install_dir/exec/YETI-2.0/; python2.7 install.py
 ```
 
 ### test-run
@@ -28,4 +28,4 @@ $ $install_dir/venv/bin/python $install_dir/packpred_runner.py --input input.jso
 ```
 
 ### Server instances
- - A running server supported by IISER Pune can be found at http://cospi.iiserpune.ac.in/packpred/ [http://cospi.iiserpune.ac.in/packpred/]
+ - A running server supported by IISER Pune can be found at http://cospi.iiserpune.ac.in/packpred/
