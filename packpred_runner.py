@@ -112,7 +112,7 @@ stream_to_log(' - generate mutation list')
 # 1.0. specific program path
 mutation_list_fname = 'mutation.list'
 generate_mutation_exec = exedir+'/exec/generate_mutations.py'
-cmd = ['python', generate_mutation_exec, input_json_fname, mutation_list_fname]
+cmd = [exedir+'/venv/bin/python', generate_mutation_exec, input_json_fname, mutation_list_fname]
 cmd = ' '.join(cmd)
 stream_to_log([ cmd, '\n', commands.getoutput(cmd) ])
 
