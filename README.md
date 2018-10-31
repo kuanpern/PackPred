@@ -23,8 +23,8 @@ $ cd $install_dir/exec/YETI-2.0/; python2.7 install.py
 
 ### test-run
 ```
-$ cd $install_dir/tests/
-$ $install_dir/venv/bin/python $install_dir/packpred_runner.py --input input.json
+$ cd $install_dir/tests/unit_test_b4/
+$ $install_dir/venv/bin/python $install_dir/packpred_runner.py --input input.json --exedir $install_dir --workdir $PWD
 ```
 
 ### Server instances

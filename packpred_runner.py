@@ -31,8 +31,8 @@ parser.add_argument('--dcut',  type=float, required=False, help="distance cut-of
 parser.add_argument('--order', type=int, required=False, help="maximum clique order", choices=(2, 3, 4, 5), default=3)
 parser.add_argument('--exedir', type=str, required=True, help="executable directory")
 parser.add_argument('--workdir', type=str, required=True, help="working directory")
-pars = parser.parse_args()
-pars = vars(parser)
+args = parser.parse_args()
+pars = vars(args)
 
 # parse inputs
 d_cut            = pars['dcut']

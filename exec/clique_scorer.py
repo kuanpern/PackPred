@@ -12,8 +12,8 @@ parser = argparse.ArgumentParser(description='Score cliques')
 parser.add_argument('--infile', type=str, required=True, help="input clique file")
 parser.add_argument('--scoredir', type=str, required=True, help="scores source directory")
 parser.add_argument('--dcut',  type=float, required=False, help="distance cut-off (Angstrom)", default=10.0)
-pars = parser.parse_args()
-pars = vars(parser)
+args = parser.parse_args()
+pars = vars(args)
 
 # parse inputs
 clique_fname     = pars['infile']

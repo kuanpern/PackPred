@@ -18,8 +18,8 @@ parser.add_argument('--mutation', type=str, required=True, help="mutation list f
 parser.add_argument('--scoredir', type=str, required=True, help="scores source directory")
 parser.add_argument('--outfile', type=str, required=True, help="output file name")
 parser.add_argument('--dcut',  type=float, required=False, help="distance cut-off (Angstrom)", default=10.0)
-pars = parser.parse_args()
-pars = vars(parser)
+args = parser.parse_args()
+pars = vars(args)
 
 # parse inputs
 infilename          = pars['clique']
