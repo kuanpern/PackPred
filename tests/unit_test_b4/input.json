@@ -1,0 +1,11 @@
+{
+	"job id": "unit_test",
+	"log filename": "3vub.log",
+	"err filename": "3vub.err",
+	"pdb name": "native.pdb",
+	"original name": "3VUB.pdb",
+	"mutation type": "Alanine Scanning Mutagenesis",
+	"positions": ["A:18", "A:49"],
+	"output filename": "output.html",
+	"mutations": []
+}
