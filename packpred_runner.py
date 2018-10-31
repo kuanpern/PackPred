@@ -196,7 +196,11 @@ clique_scorer_exec  = exedir + '/exec/clique_scorer.py'
 # 5.1. scoring all cliques
 clique_files = glob.glob('*.clique*.pickle')
 for clique_filename_pickle in clique_files:
-	cmd = [exedir+'/venv/bin/python', clique_scorer_exec, clique_filename_pickle, scores_lib_dir, '../job.specifications']
+	cmd = [exedir+'/venv/bin/python', clique_scorer_exec,
+		'--infile', clique_filename_pickle, 
+		'--scoredir', scores_lib_dir, 
+		'--dcut', dcut
+	] # end cmd
 	cmd = ' '.join(cmd)
 	stream_to_log([cmd, '\n', commands.getoutput(cmd) ])
 # end for
@@ -209,7 +213,14 @@ for clique_filename_pickle in clique_files:
 	clique_score_outfname = clique_filename_pickle + '.json'
 	clique_score_fnames.append(clique_score_outfname)
 
-	cmd = [exedir+'/venv/bin/python', mutants_scorer_exec, clique_filename_pickle, '../'+input_pdb, '../'+mutation_list_fname, scores_lib_dir, clique_score_outfname, '../job.specifications']
+	cmd = [exedir+'/venv/bin/python', mutants_scorer_exec, 
+		'--clique', clique_filename_pickle, 
+		'--pdb', '../'+input_pdb, 
+		'--mutation', '../'+mutation_list_fname
+		'--scoredir', scores_lib_dir, 
+		'--outfile', clique_score_outfname
+		'--dcut', dcut
+	] # end cmd
 	cmd = ' '.join(cmd)
 	stream_to_log(cmd)
 	output = commands.getoutput(cmd).splitlines()

@@ -10,20 +10,27 @@ env = environ()
 
 from clique_scoring_helper import *
 
-# read input
-if len(sys.argv) != 7:
-	print 'python', sys.argv[0], 'input.cliqueN.pickle input.pdb mutation_list_file score_files_dir output.json specification_file'
-	sys.exit(0)
-	
-infilename          = sys.argv[1]
-pdb_fname           = sys.argv[2]
-mutation_list_fname = sys.argv[3]
-score_files_dir     = sys.argv[4]
-outfname            = sys.argv[5]
-specification_file  = sys.argv[6]
+# read inputs
+parser = argparse.ArgumentParser(description='Score cliques')
+parser.add_argument('--clique', type=str, required=True, help="input clique file")
+parser.add_argument('--pdb', type=str, required=True, help="input pdb file")
+parser.add_argument('--mutation', type=str, required=True, help="mutation list file")
+parser.add_argument('--scoredir', type=str, required=True, help="scores source directory")
+parser.add_argument('--outfile', type=str, required=True, help="output file name")
+parser.add_argument('--dcut',  type=float, required=False, help="distance cut-off (Angstrom)", default=10.0)
+pars = parser.parse_args()
+pars = vars(parser)
 
-# import parameters
-execfile(specification_file)
+# parse inputs
+infilename          = pars['clique']
+pdb_fname           = pars['pdb']
+mutation_list_fname = pars['mutation']
+score_files_dir     = pars['scoredir']
+outfname            = pars['outfile']
+dcut                = pars['dcut']
+
+dcuts = [dcut]
+d_cuts.sort()
 
 # read pdb file
 mdl = model(env, file = pdb_fname)

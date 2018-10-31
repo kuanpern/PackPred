@@ -1,22 +1,26 @@
 import cPickle as pickle
 import sys
 import json
+import argparse
 from scipy.stats import norm
 from copy import deepcopy
 from numpy import *
 from clique_scoring_helper import *
 
-if len(sys.argv) != 4:
-	print 'python', sys.argv[0], 'clique_filename score_files_dir specification_file'
-	sys.exit(0)
-# end if
-
 # read input
-clique_fname       = sys.argv[1]
-score_files_dir    = sys.argv[2] # master_dir + '/train-set/pdbs/model_variation/CVs/10'
-specification_file = sys.argv[3]
+parser = argparse.ArgumentParser(description='Score cliques')
+parser.add_argument('--infile', type=str, required=True, help="input clique file")
+parser.add_argument('--scoredir', type=str, required=True, help="scores source directory")
+parser.add_argument('--dcut',  type=float, required=False, help="distance cut-off (Angstrom)", default=10.0)
+pars = parser.parse_args()
+pars = vars(parser)
 
-execfile(specification_file)
+# parse inputs
+clique_fname     = pars['infile']
+score_files_dir  = pars['scoredir']
+dcut             = pars['dcut']
+
+dcuts = [dcut]
 d_cuts.sort()
 
 # read cliques
