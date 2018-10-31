@@ -8,7 +8,7 @@ curdir = os.getcwd()
 with open('src/main_template.py') as fin:
 	content = fin.read()
 # end with
-with open('src/main.py') as fout:
+with open('main.py', 'w') as fout:
 	content = content.replace('$wd', curdir)
 	fout.writelines(content)
 # end with
