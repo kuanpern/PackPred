@@ -158,7 +158,8 @@ clique_identifier_exe	 = clique_exedir + '/exec/identify_clique.py'
 # 3.1. invoke clique program
 cmd = [exedir+'/venv/bin/python ', clique_main_exec, input_pdb, str(max_clique_order), str(max_clique_cutoff), clique_distance_selector, clique_linkage_builder, clique_linkage_par_file]
 cmd = ' '.join(cmd)
-stream_to_log([cmd, '\n', commands.getoutput(cmd) ])
+stream_to_log(cmd)
+stream_to_log(commands.getoutput(cmd))
 
 # 3.2. move files into respective directories
 cmds = Template('''
@@ -168,7 +169,8 @@ mv $pdb_code*.link $pdb_code*orphan* $pdb_code*xyz $pdb_code*select.pdb $pdb_cod
 ''').substitute({'pdb_code': pdb_code})
 cmds = cmds.strip().splitlines()
 for cmd in cmds:
-	stream_to_log([cmd, '\n', commands.getoutput(cmd) ])
+	stream_to_log(cmd)
+	stream_to_log(commands.getoutput(cmd))
 # end for
 
 # 3.3. identify residue clique (append residue / environment information to clique file)
@@ -183,7 +185,8 @@ for clique_filename in clique_files:
 
 	cmd = [exedir+'/venv/bin/python', clique_identifier_exe, clique_filename, pdb_fname, depth_fname, output_filename]
 	cmd = ' '.join(cmd)
-	stream_to_log([cmd, '\n', commands.getoutput(cmd) ])
+	stream_to_log(cmd)
+	stream_to_log(commands.getoutput(cmd))
 # end for
 
 # -- error checking - (4)
@@ -202,10 +205,12 @@ for clique_filename_pickle in clique_files:
 	cmd = [exedir+'/venv/bin/python', clique_scorer_exec,
 		'--infile', clique_filename_pickle, 
 		'--scoredir', scores_lib_dir, 
-		'--dcut', dcut
+		'--dcut', d_cut
 	] # end cmd
+	cmd = list(map(str, cmd))
 	cmd = ' '.join(cmd)
-	stream_to_log([cmd, '\n', commands.getoutput(cmd) ])
+	stream_to_log(cmd)
+	stream_to_log(commands.getoutput(cmd))
 # end for
 
 # 5.2. score all mutants
@@ -222,8 +227,9 @@ for clique_filename_pickle in clique_files:
 		'--mutation', '../'+mutation_list_fname,
 		'--scoredir', scores_lib_dir, 
 		'--outfile', clique_score_outfname,
-		'--dcut', dcut
+		'--dcut', d_cut
 	] # end cmd
+	cmd = list(map(str, cmd))
 	cmd = ' '.join(cmd)
 	stream_to_log(cmd)
 	output = commands.getoutput(cmd).splitlines()
@@ -264,7 +270,7 @@ if len(combined_scores) == 0:
 os.chdir(cwd)
 tmpfname = job_id + '.tmp.json'
 with open(tmpfname, 'w') as fout:
-	json.dump(fout, combined_scores)
+	json.dump(combined_scores, fout)
 # end with
 
 # 6.2. generate html output
@@ -275,6 +281,5 @@ template_fname = exedir + '/templates/output_template.html'
 colorbar_fname = exedir + '/templates/colorbar64.txt'
 cmd = [exedir+'/venv/bin/python', result_generator_exec, tmpfname, template_fname, colorbar_fname, output_html_fname]
 cmd = ' '.join(cmd)
-stream_to_log([cmd, '\n', commands.getoutput(cmd) ])
-
-
+stream_to_log(cmd)
+stream_to_log(commands.getoutput(cmd))

@@ -1,4 +1,3 @@
-from bioparser import *
 import sys
 
 fin = open(sys.argv[1])

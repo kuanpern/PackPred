@@ -20,7 +20,7 @@ clique_fname     = pars['infile']
 score_files_dir  = pars['scoredir']
 dcut             = pars['dcut']
 
-dcuts = [dcut]
+d_cuts = [dcut]
 d_cuts.sort()
 
 # read cliques

@@ -1,11 +1,69 @@
 # append information to a clique, save in pickle format
 import cPickle as pickle
-from shorthand import *
+#from shorthand import *
 from modeller import *
 log.none()
 env = environ()
+from numpy import *
 
 import sys
+
+def isint(s):
+	if s - int(s) == 0:
+		return True
+	else:
+		return False
+	# end if
+# end def
+
+def read_table(fname, FS = None, label = [], check_num = True, check_int = True, header = True):
+	output = []
+	fin = open(fname)
+
+	if header == True:
+		headers = fin.next().split()
+	# end if
+
+
+	for line in fin:
+		output.append(line.split(FS))
+	# end for
+	fin.close()
+
+	if check_num == False:
+		return output
+	# end if
+
+	if type(label) == int:
+		label = [label]
+	# end for
+	for i in range(len(output)):
+		for j in range(len(output[i])):
+			if j not in label:
+				try:
+					output[i][j] = float(output[i][j])
+					if isint(output[i][j]):
+						output[i][j] = int(output[i][j])
+					# end if
+				except ValueError:
+					pass
+				# end try
+			# end if
+		# end for
+	# end for
+
+	if header == True:
+		out_dict = {}
+		for i in range(len(headers)):
+			content = [output[t][i] for t in range(len(output))]
+			out_dict.update({headers[i]:content})
+		# end for
+		output = out_dict
+	# end if
+
+	return output
+# end def
+
 
 if len(sys.argv) != 5:
 	print 'python', sys.argv[0], 'input.clique input.pdb input.residue-depth Cliques.clique.json'
@@ -21,7 +79,8 @@ mdl = model(env, file = pdb_fname)
 aa_dict = dict([[r.chain.name + r.num, r.code] for r in mdl.residues])
 
 # read residue depth
-depths = read_table(depth_fname)[1:] # skip header
+depths = read_table(depth_fname, header=False)
+depths = depths[1:] # skip header
 depths = [[dat[0].replace(':', ''), [dat[2], dat[3]]] for dat in depths]
 depths = dict(depths)
 

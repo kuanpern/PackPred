@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import argparse
 from numpy import *
 import cPickle as pickle
 from copy import deepcopy
@@ -29,7 +30,7 @@ score_files_dir     = pars['scoredir']
 outfname            = pars['outfile']
 dcut                = pars['dcut']
 
-dcuts = [dcut]
+d_cuts = [dcut]
 d_cuts.sort()
 
 # read pdb file
