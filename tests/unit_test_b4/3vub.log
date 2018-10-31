@@ -1,0 +1,9 @@
+2018-10-31 17:48:48,097 - __main__ - INFO -  - reading input ...
+2018-10-31 17:48:48,098 - __main__ - INFO -  - generate mutation list
+2018-10-31 17:48:48,106 - __main__ - INFO - /home/tankp/githubs/packpred_server/venv/bin/python /home/tankp/githubs/packpred_server/exec/generate_mutations.py input.json mutation.list 
+ Traceback (most recent call last):
+  File "/home/tankp/githubs/packpred_server/exec/generate_mutations.py", line 3, in <module>
+    from modeller import *
+ImportError: No module named modeller
+
+2018-10-31 17:48:48,106 - __main__ - ERROR - mutation list file: mutation.list not found
