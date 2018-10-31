@@ -9,7 +9,14 @@ Authors: Kuan Pern Tan, Parichit Sharma, Kwoh Chee Keong, M.S. Madhusudhan
 ```
 
 ### installations
+Modeller program needs to be installed on the system. Please refer to https://salilab.org/modeller/download_installation.html for installation guide for different opearating system.
+
+Assume OS Ubuntu 16.04
 ```
+# install dependencies
+$ sudo apt-get install python2.7 g++
+
+# compile the dependency programs
 $ cd $install_dir/exec/depth-2.0/bin/; make
 $ cd $install_dir/exec/YETI-2.0/; python install.py
 ```
