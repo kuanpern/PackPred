@@ -2,7 +2,7 @@
 # main program of clique building
 import sys
 import commands
-install_dir = $wd
+install_dir = "$wd"
 
 def line_count(fname):
 	fin = open(fname)

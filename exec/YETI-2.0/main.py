@@ -2,7 +2,7 @@
 # main program of clique building
 import sys
 import commands
-install_dir = /home/tankp/githubs/packpred_server/exec/YETI-2.0
+install_dir = "/home/tankp/githubs/packpred_server/exec/YETI-2.0"
 
 def line_count(fname):
 	fin = open(fname)
