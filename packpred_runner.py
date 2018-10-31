@@ -43,8 +43,8 @@ workdir          = pars['workdir']
 
 # set parameters
 min_clique_order = 2
-max_clique_cutoff = max(d_cuts) + 0.5
 d_cuts = [d_cut]
+max_clique_cutoff = max(d_cuts) + 0.5
 
 # read json input
 with open(input_json_fname) as fin:
