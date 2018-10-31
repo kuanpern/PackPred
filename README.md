@@ -43,4 +43,4 @@ $ $install_dir/venv/bin/python $install_dir/packpred_runner.py --input input.jso
 ```
 
 ### Server instances
- - A running server supported by IISER Pune can be found at http://cospi.iiserpune.ac.in/packpred/
+ - A running server (currently supported by IISER Pune) can be found at http://cospi.iiserpune.ac.in/packpred/

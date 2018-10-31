@@ -114,7 +114,8 @@ mutation_list_fname = 'mutation.list'
 generate_mutation_exec = exedir+'/exec/generate_mutations.py'
 cmd = [exedir+'/venv/bin/python', generate_mutation_exec, input_json_fname, mutation_list_fname]
 cmd = ' '.join(cmd)
-stream_to_log([ cmd, '\n', commands.getoutput(cmd) ])
+stream_to_log(cmd)
+stream_to_log(commands.getoutput(cmd))
 
 # -- error checking - (2)
 if not(os.path.isfile(mutation_list_fname)):
@@ -130,11 +131,13 @@ stream_to_log(' - computing residue depths ...')
 depth_exec = exedir+'/exec/depth-2.0/bin/DEPTH'
 cmd = [depth_exec, '-i', input_pdb, '-o', input_pdb, '-survive 4']
 cmd = ' '.join(cmd)
-stream_to_log([ cmd, '\n', commands.getoutput(cmd) ])
+stream_to_log(cmd)
+stream_to_log(commands.getoutput(cmd))
 # 2.2. move files into depth directory
 os.makedirs('depths/')
 cmd = 'mv native*depth* depths/'
-stream_to_log([ cmd, '\n', commands.getoutput(cmd) ])
+stream_to_log(cmd)
+stream_to_log(commands.getoutput(cmd))
 
 # -- error checking - (3)
 depth_fname = 'depths/'+input_pdb+'-residue.depth'
