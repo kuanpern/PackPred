@@ -216,9 +216,9 @@ for clique_filename_pickle in clique_files:
 	cmd = [exedir+'/venv/bin/python', mutants_scorer_exec, 
 		'--clique', clique_filename_pickle, 
 		'--pdb', '../'+input_pdb, 
-		'--mutation', '../'+mutation_list_fname
+		'--mutation', '../'+mutation_list_fname,
 		'--scoredir', scores_lib_dir, 
-		'--outfile', clique_score_outfname
+		'--outfile', clique_score_outfname,
 		'--dcut', dcut
 	] # end cmd
 	cmd = ' '.join(cmd)
