@@ -1,6 +1,9 @@
 ## Packpred
 Predicting the functional consequences of point mutations in proteins.
 
+### Server demo
+ - A running server (currently supported by IISER Pune) can be found at http://cospi.iiserpune.ac.in/packpred/
+
 ### References
 ```
 Status: submitted
@@ -41,6 +44,3 @@ $ ln -sf /usr/lib/python2.7/dist-packages/_modeller.so .
 $ cd $install_dir/tests/unit_test_b4/
 $ $install_dir/venv/bin/python $install_dir/packpred_runner.py --input input.json --exedir $install_dir --workdir $PWD
 ```
-
-### Server instances
- - A running server (currently supported by IISER Pune) can be found at http://cospi.iiserpune.ac.in/packpred/
